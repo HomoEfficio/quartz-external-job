@@ -1,4 +1,4 @@
-package io.homo_efficio.quartz.scheduler;
+package io.homo_efficio.quartz;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
