@@ -8,3 +8,7 @@
  */
 
 rootProject.name = 'quartz-external-job'
+
+include 'quartz-scheduler'
+include 'quartz-job'
+
