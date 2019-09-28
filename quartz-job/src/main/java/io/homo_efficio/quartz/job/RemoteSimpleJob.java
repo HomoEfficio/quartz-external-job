@@ -1,16 +1,25 @@
 package io.homo_efficio.quartz.job;
 
+import io.homo_efficio.quartz.scheduler.HelloService;
+import lombok.extern.slf4j.Slf4j;
+import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
-import org.springframework.scheduling.quartz.QuartzJobBean;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author homo.efficio@gmail.com
  * created on 2019-09-28
  */
-public class RemoteSimpleJob extends QuartzJobBean {
+@Slf4j
+public class RemoteSimpleJob implements Job {
+
+    @Autowired
+    private HelloService helloService;
+
     @Override
-    protected void executeInternal(JobExecutionContext context) throws JobExecutionException {
-        System.out.println(this.getClass().getSimpleName() + " executed.");
+    public void execute(JobExecutionContext context) throws JobExecutionException {
+        log.info("OOO {} executed..", this.getClass().getSimpleName());
+        helloService.sayHello();
     }
 }

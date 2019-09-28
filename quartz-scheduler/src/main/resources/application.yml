@@ -1,0 +1,3 @@
+spring.quartz:
+  scheduler-name: MyQuartzScheduler
+  overwrite-existing-jobs: true

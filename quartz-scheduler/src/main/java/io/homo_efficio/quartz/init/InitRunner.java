@@ -1,5 +1,6 @@
 package io.homo_efficio.quartz.init;
 
+import io.homo_efficio.quartz.config.RemoteJobClassLoader;
 import io.homo_efficio.quartz.job.SimpleJob;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class InitRunner implements CommandLineRunner {
 
     private final Scheduler scheduler;
-
+    private final RemoteJobClassLoader remoteJobClassLoader;
 
     @Override
     public void run(String... args) throws Exception {
@@ -27,11 +28,12 @@ public class InitRunner implements CommandLineRunner {
         scheduler.scheduleJob(jobDetail, trigger);
     }
 
-    private JobDetail buildJobDetail(JobKey jobKey) {
+    private JobDetail buildJobDetail(JobKey jobKey) throws ClassNotFoundException {
         JobDataMap jobDataMap = new JobDataMap();
         jobDataMap.put("key1", "value1");
         jobDataMap.put("key2", 2);
-        return JobBuilder.newJob(SimpleJob.class)
+        Class<? extends Job> loadedClass = remoteJobClassLoader.loadClass("io.homo_efficio.quartz.job.RemoteSimpleJob", Job.class);
+        return JobBuilder.newJob(loadedClass)
                 .withIdentity(jobKey)
                 .withDescription("Simple Quartz Job Detail")
                 .usingJobData(jobDataMap)
