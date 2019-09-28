@@ -22,6 +22,7 @@ public class InitRunner implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
+        log.info("Init Runner executed.");
         JobKey jobKey = JobKey.jobKey("jobkey1", "jobgroup1");
         JobDetail jobDetail = buildJobDetail(jobKey);
         Trigger trigger = buildJobTrigger(jobKey);
