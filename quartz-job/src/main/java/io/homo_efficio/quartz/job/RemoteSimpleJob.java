@@ -9,6 +9,7 @@ import org.quartz.Job;
 import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author homo.efficio@gmail.com
@@ -21,6 +22,7 @@ public class RemoteSimpleJob implements Job {
     private final HelloService helloService;
     private final MemberRepository memberRepository;
 
+    @Transactional
     @Override
     public void execute(JobExecutionContext context) throws JobExecutionException {
         log.info("OOO REMOTE JOB [{}] executed.", this.getClass().getSimpleName());
