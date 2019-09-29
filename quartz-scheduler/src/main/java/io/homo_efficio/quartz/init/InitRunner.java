@@ -2,6 +2,8 @@ package io.homo_efficio.quartz.init;
 
 import io.homo_efficio.quartz.config.RemoteJobClassLoader;
 import io.homo_efficio.quartz.job.SimpleJob;
+import io.homo_efficio.quartz.scheduler.HelloService;
+import io.homo_efficio.quartz.scheduler.entity.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
@@ -19,6 +21,7 @@ public class InitRunner implements CommandLineRunner {
 
     private final Scheduler scheduler;
     private final RemoteJobClassLoader remoteJobClassLoader;
+    private final HelloService helloService;
 
     @Override
     public void run(String... args) throws Exception {
@@ -27,6 +30,14 @@ public class InitRunner implements CommandLineRunner {
         JobDetail jobDetail = buildJobDetail(jobKey);
         Trigger trigger = buildJobTrigger(jobKey);
         scheduler.scheduleJob(jobDetail, trigger);
+
+        Member member = new Member("Homo Efficio", "homo.efficio@gmail.com");
+        try {
+            Member dbMember = helloService.saveMember(member);
+            log.info("TTT 회원 [{}] 추가됨", dbMember);
+        } catch (Exception e) {
+            log.error("TTT 회원 추가 중 예외 발생. 메시지: {}",e.getMessage());
+        }
     }
 
     private JobDetail buildJobDetail(JobKey jobKey) throws ClassNotFoundException {
