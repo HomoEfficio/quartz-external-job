@@ -10,6 +10,4 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface MemberRepository extends JpaRepository<Member, Long> {
-    @Override
-    <S extends Member> S save(S entity);
 }
