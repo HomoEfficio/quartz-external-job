@@ -16,7 +16,7 @@ import java.net.URLClassLoader;
 @Slf4j
 public class RemoteJobClassLoader {
 
-    private final String JOB_REPO = "/tmp/homo-efficio/quartz/remote-job-repo/quartz-job.jar";
+    private static final String JOB_REPO = "/tmp/homo-efficio/quartz/remote-job-repo/quartz-job.jar";
 
     @SuppressWarnings("unchecked")
     public <T> Class<? extends T> loadClass(String name, Class<T> clazz) throws ClassNotFoundException {
@@ -27,7 +27,7 @@ public class RemoteJobClassLoader {
         try {
             return new URLClassLoader(
                     new URL[] {
-                            new File(this.JOB_REPO).toURI().toURL()
+                            new File(JOB_REPO).toURI().toURL()
                     },
                     // URLClassLoader 설정 시 parent를 webAppClassLoader로 지정해줘야
                     // org.quartz.Job 등 내부 의존 클래스 로딩 가능
