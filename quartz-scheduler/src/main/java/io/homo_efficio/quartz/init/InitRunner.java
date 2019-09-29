@@ -31,13 +31,13 @@ public class InitRunner implements CommandLineRunner {
         Trigger trigger = buildJobTrigger(jobKey);
         scheduler.scheduleJob(jobDetail, trigger);
 
-        Member member = new Member("Homo Efficio", "homo.efficio@gmail.com");
-        try {
-            Member dbMember = helloService.saveMember(member);
-            log.info("TTT 회원 [{}] 추가됨", dbMember);
-        } catch (Exception e) {
-            log.error("TTT 회원 추가 중 예외 발생. 메시지: {}",e.getMessage());
-        }
+//        Member member = new Member("Homo Efficio", "homo.efficio@gmail.com");
+//        try {
+//            Member dbMember = helloService.saveMember(member);
+//            log.info("TTT 회원 [{}] 추가됨", dbMember);
+//        } catch (Exception e) {
+//            log.error("TTT 회원 추가 중 예외 발생. 메시지: {}",e.getMessage());
+//        }
     }
 
     private JobDetail buildJobDetail(JobKey jobKey) throws ClassNotFoundException {
