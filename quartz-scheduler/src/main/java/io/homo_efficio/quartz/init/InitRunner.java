@@ -33,8 +33,8 @@ public class InitRunner implements CommandLineRunner {
         JobDataMap jobDataMap = new JobDataMap();
         jobDataMap.put("key1", "value1");
         jobDataMap.put("key2", 2);
-        Class<? extends Job> loadedClass = remoteJobClassLoader.loadClass("io.homo_efficio.quartz.job.RemoteSimpleJob", Job.class);
-        return JobBuilder.newJob(loadedClass)
+//        return JobBuilder.newJob(SimpleJob.class)
+        return JobBuilder.newJob(remoteJobClassLoader.loadClass("io.homo_efficio.quartz.job.RemoteSimpleJob", Job.class))
                 .withIdentity(jobKey)
                 .withDescription("Simple Quartz Job Detail")
                 .usingJobData(jobDataMap)
